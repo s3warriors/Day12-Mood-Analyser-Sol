@@ -1,8 +1,9 @@
 package org.example;
 
+// Custom Exception Class
 class MoodAnalysisException extends Exception {
     public enum ExceptionType {
-        NULL_MOOD
+        EMPTY_MOOD
     }
 
     private final ExceptionType type;
