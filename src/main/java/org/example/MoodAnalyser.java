@@ -1,6 +1,6 @@
 package org.example;
 
-public class MoodAnalyser {
+class MoodAnalyser {
 
     private String mood;
 
@@ -9,18 +9,24 @@ public class MoodAnalyser {
         this.mood = mood;
     }
 
-    // Step 2: Method to analyze mood
-    public String analyseMood() {
+    // Step 2: Method to analyze mood with exception handling for NULL
+    public String analyseMood() throws MoodAnalysisException {
+        if (mood == null) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MOOD, "Mood is null.");
+        }
         return mood.toLowerCase().contains("sad") ? "SAD" : "HAPPY";
     }
 
     public static void main(String[] args) {
-        // TC 1.1: Sad Mood
-        MoodAnalyser analyser = new MoodAnalyser("I am in a sad mood");
-        System.out.println("UC1 - TC1.1 - Mood: " + analyser.analyseMood()); // Output: SAD
-
-        // TC 1.2: Any other Mood
-        analyser = new MoodAnalyser("I am in any mood");
-        System.out.println("UC1 - TC1.2 - Mood: " + analyser.analyseMood()); // Output: HAPPY
+        // TC 2.1: NULL Mood
+        try {
+            MoodAnalyser analyser = new MoodAnalyser(null);
+            System.out.println("UC2 - TC2.1 - Mood: " + analyser.analyseMood());
+        } catch (MoodAnalysisException e) {
+            System.out.println("UC2 - TC2.1 - Exception: " + e.getType() + " - " + e.getMessage());
+        }
     }
+
+
 }
+
